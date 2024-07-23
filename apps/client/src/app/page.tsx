@@ -16,8 +16,8 @@ export default function Home() {
           <button className="px-10 py-3 bg-orange-600 text-white rounded-full">
             Start free with email
           </button>
-          <button className="px-10 py-3 border border-black rounded-full">
-            G Start free with Google
+          <button className="px-10 py-3 flex gap-3 items-center border border-black rounded-full">
+            <img src="/google_logo.png" className="h-6 w-6" /> Start free with Google
           </button>
         </div>
         <div className="flex items-center gap-3.5 my-6">
