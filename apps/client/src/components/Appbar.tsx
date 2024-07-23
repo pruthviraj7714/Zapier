@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Appbar() {
   return (
-    <div className="flex justify-between items-center h-12 border-b-2 p-6">
+    <div className="flex justify-between items-center h-14 border-b border-gray-300 p-6">
       <Link href={"/"} className="text-black text-2xl font-extrabold">
         <span className="text-orange-500">_</span>Zapier
       </Link>

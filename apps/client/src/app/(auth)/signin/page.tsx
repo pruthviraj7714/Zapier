@@ -6,9 +6,12 @@ export default async function () {
   return (
     <div className="h-screen flex flex-col justify-center items-center  text-white p-6">
       <div className="bg-white text-black p-8 rounded-lg border border-gray-400 shadow-xl  max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">
+        <h2 className="text-2xl font-bold text-center">
           Login to Your Account
         </h2>
+        <p className="text-sm text-center mb-6 my-2">
+        Enter your credentials below to login in your account
+        </p>
         <form className="space-y-6">
           <div>
             <Label
@@ -47,7 +50,7 @@ export default async function () {
         </div>
         <Button
           variant={"ghost"}
-          className="mt-4 w-full border border-gray-400"
+          className="mt-4 w-full border border-gray-400 hover:bg-gray-200"
         >
           <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 12v8h4a8 8 0 1 0-4-8z" />

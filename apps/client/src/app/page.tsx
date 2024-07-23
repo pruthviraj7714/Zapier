@@ -42,7 +42,7 @@ export default function Home() {
             loop
           />
         </div>
-        <div className="flex flex-col items-center bg-teal-200 w-full h-full my-4 p-5">
+        <div className="flex flex-col items-center bg-teal-200 w-full h-full p-5">
           <h1 className="text-6xl max-w-5xl text-center my-3 font-bold">
             Meet Zapier: Your new home to automate anything
           </h1>
