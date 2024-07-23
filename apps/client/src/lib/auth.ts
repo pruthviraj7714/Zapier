@@ -1,8 +1,10 @@
-import { NextAuthOptions, Session, User as NextAuthUser } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { compare } from 'bcrypt';
-import { JWT } from 'next-auth/jwt';
-import db from "@repo/db/client"
+import { NextAuthOptions, Session, User as NextAuthUser } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from "bcrypt";
+import { JWT } from "next-auth/jwt";
+import db from "@repo/db/client";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 interface CustomSession extends Session {
   user: {
@@ -21,43 +23,63 @@ interface CustomUser extends NextAuthUser {
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'john@example.com' },
-        password: { label: 'Password', type: 'password', placeholder: 'password' },
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "john@example.com",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "password",
+        },
       },
       async authorize(credentials): Promise<any> {
-
         if (!credentials?.email || !credentials.password) {
-          throw new Error('Email and password are required');
+          throw new Error("Email and password are required");
         }
 
         const user = await db.user.findFirst({
-           where : {
-            email : credentials.email
-           }
-        })
+          where: {
+            email: credentials.email,
+          },
+        });
 
         if (!user) {
-          throw new Error('No user found with the provided credentials');
+          throw new Error("No user found with the provided credentials");
         }
 
-        const isValidPassword = await compare(credentials.password, user.password);
+        const isValidPassword = await compare(
+          credentials.password,
+          user.password
+        );
         if (!isValidPassword) {
-          throw new Error('Invalid password');
+          throw new Error("Invalid password");
         }
 
         return { id: user.id.toString(), name: user.name, email: user.email };
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID || "",
+      clientSecret: process.env.GOOGLE_SECRET || "",
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
+      //@ts-ignore
+      scope: "read:user",
+    }),
   ],
   pages: {
-    signIn: '/signin'
+    signIn: "/signin",
   },
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: NextAuthUser }) {
       if (user) {
-        token.id =(user as CustomUser).id;
+        token.id = (user as CustomUser).id;
         token.email = user.email;
         token.name = user.name;
       }
@@ -74,7 +96,7 @@ const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret : process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default authOptions;

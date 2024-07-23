@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   Card,
@@ -14,8 +14,10 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 export function CreateAccount() {
+  
+
   return (
-    <div className="max-w-xl">
+    <div className="">
       <Card>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Create an account</CardTitle>
@@ -56,7 +58,7 @@ export function CreateAccount() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button className="w-full">Create account</Button>
+          <Button className="w-full">Get Started Free</Button>
           <div className="flex items-center mt-4">
             <p>
               Already have an account?
