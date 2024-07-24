@@ -4,6 +4,7 @@ import "./globals.css";
 import Appbar from "@/components/Appbar";
 import Providers from "@/components/Providers";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
+      <Providers>
+        <body className={inter.className}>
+          <Toaster />
           <Appbar />
           {children}
-        </Providers>
-        <Footer />
-      </body>
+          <Footer />
+        </body>
+      </Providers>
     </html>
   );
 }

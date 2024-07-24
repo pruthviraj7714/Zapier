@@ -36,7 +36,7 @@ const authOptions: NextAuthOptions = {
           placeholder: "password",
         },
       },
-      async authorize(credentials): Promise<any> {
+      async authorize(credentials): Promise<CustomUser | null> {
         if (!credentials?.email || !credentials.password) {
           throw new Error("Email and password are required");
         }
@@ -51,10 +51,7 @@ const authOptions: NextAuthOptions = {
           throw new Error("No user found with the provided credentials");
         }
 
-        const isValidPassword = await compare(
-          credentials.password,
-          user.password
-        );
+        const isValidPassword = await compare(credentials.password, user.password);
         if (!isValidPassword) {
           throw new Error("Invalid password");
         }
@@ -63,13 +60,13 @@ const authOptions: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID || "",
-      clientSecret: process.env.GOOGLE_SECRET || "",
+      clientId: process.env.GOOGLE_ID ?? "",
+      clientSecret: process.env.GOOGLE_SECRET ?? "",
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_ID || "",
-      clientSecret: process.env.GITHUB_SECRET || "",
-      //@ts-ignore
+      clientId: process.env.GITHUB_ID ?? "",
+      clientSecret: process.env.GITHUB_SECRET ?? "",
+      // @ts-ignore
       scope: "read:user",
     }),
   ],
@@ -85,7 +82,7 @@ const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (token) {
         (session as CustomSession).user = {
           id: token.id as string,
