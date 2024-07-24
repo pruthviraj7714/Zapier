@@ -1,4 +1,4 @@
-
+"use client"
 
 import {
   Card,
@@ -12,9 +12,36 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useState } from "react";
+import axios from "axios";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
 
 export function CreateAccount() {
-  
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const { toast } = useToast();
+  const router = useRouter();
+  const submit = async () => {
+    try {
+      await axios.post("/api/user/signup", {
+        name,
+        email,
+        password,
+      });
+      toast({
+        title: "Account Successfully Created",
+        description: "Sign in with your credentials"
+      });
+
+      router.push("/signin");
+    } catch (error: any) {
+      toast({
+        title: error.response.data.message,
+      });
+    }
+  };
 
   return (
     <div className="">
@@ -46,19 +73,34 @@ export function CreateAccount() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" type="text" placeholder="Enter username" />
+            <Input
+              onChange={(e) => setName(e.target.value)}
+              id="name"
+              type="text"
+              placeholder="Enter username"
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" />
+            <Input
+              id="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="m@example.com"
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" placeholder="Enter password" type="password" />
+            <Input
+              id="password"
+              placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+            />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button className="w-full">Get Started Free</Button>
+          <Button onClick={submit} className="w-full">Get Started Free</Button>
           <div className="flex items-center mt-4">
             <p>
               Already have an account?
