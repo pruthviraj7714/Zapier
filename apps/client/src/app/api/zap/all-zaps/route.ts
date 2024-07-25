@@ -16,19 +16,20 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const user = await db.user.findUnique({
+    const zaps = await db.zap.findMany({
       where: {
-        id: parseInt(session.user.id, 10),
+        userId: parseInt(session.user.id, 10),
       },
-      select: {
-        zaps: true,
-      },
+      include : {
+        trigger : true,
+        actions : true,
+      }
     });
 
-    if (!user) {
+    if (!zaps) {
       return NextResponse.json(
         {
-          message: "User not found!",
+          message: "No Zaps Found!",
         },
         { status: 404 } 
       );
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(
       {
-        zaps: user.zaps,
+        zaps
       },
       { status: 200 } 
     );
