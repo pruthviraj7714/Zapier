@@ -87,12 +87,19 @@ export default function SignInForm() {
         <div className="mt-6 flex items-center justify-center">
           <span className="text-gray-500">or</span>
         </div>
-        <Button variant={"ghost"} className="mt-4 w-full border border-gray-400 hover:bg-gray-200">
+        <Button variant={"ghost"} onClick={async() => {
+          await signIn("google");
+        }} className="mt-4 w-full border border-gray-400 hover:bg-gray-200">
           <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 12v8h4a8 8 0 1 0-4-8z" />
             <path d="M12 12V4a8 8 0 0 0-7.75 5.6l3.1 2.4a4 4 0 0 1 4.65-4.95z" />
           </svg>
           Sign in with Google
+        </Button>
+        <Button variant={"ghost"} onClick={async() => {
+          await signIn("github");
+        }} className="mt-4 w-full border border-gray-400 hover:bg-gray-200">
+          Sign in with Github
         </Button>
       </div>
     </div>

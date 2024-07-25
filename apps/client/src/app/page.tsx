@@ -1,5 +1,3 @@
-
-
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -17,7 +15,8 @@ export default function Home() {
             Start free with email
           </button>
           <button className="px-10 py-3 flex gap-3 items-center border border-black rounded-full">
-            <img src="/google_logo.png" className="h-6 w-6" /> Start free with Google
+            <img src="/google_logo.png" className="h-6 w-6" /> Start free with
+            Google
           </button>
         </div>
         <div className="flex items-center gap-3.5 my-6">
