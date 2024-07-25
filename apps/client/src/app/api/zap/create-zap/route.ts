@@ -21,7 +21,6 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { triggerId, actions } = body;
 
-    // Validate required fields
     if (
       !triggerId ||
       !actions ||
@@ -36,7 +35,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Create the new zap
     const newZap = await db.zap.create({
       data: {
         triggerId,
