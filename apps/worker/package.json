@@ -1,0 +1,16 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist",
+    "dev": "npm run build && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}
