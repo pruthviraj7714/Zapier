@@ -26,6 +26,16 @@ const main = async () => {
         };
       }),
     });
+
+    await db.zapRunOutbox.deleteMany({
+      where: {
+        id: {
+          in: pendingRows.map((r) => r.id),
+        },
+      },
+    });
+
+    await new Promise((res) => setTimeout(res, 3000));
   }
 };
 
