@@ -6,7 +6,7 @@ const kafka = new Kafka({
   brokers: ["localhost:9092"],
 });
 
-export const TOPIC_NAME = "zap-events";
+const TOPIC_NAME = "zap-events";
 
 const main = async () => {
   const producer = kafka.producer();
