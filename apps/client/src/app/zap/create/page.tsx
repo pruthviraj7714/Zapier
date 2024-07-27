@@ -16,7 +16,8 @@ import ElementCell from "@/components/ElementCell";
 
 export default function ZapPage() {
   const [selectedTrigger, setSelectedTrigger] = useState<{
-    name: string;
+    name: string,
+    image : string
   } | null>(null);
   const [selectedActions, setSelectedActions] = useState<any[]>([]);
   const [selectedModelIndex, setSelectedModelIndex] = useState<null | number>(
@@ -82,6 +83,7 @@ export default function ZapPage() {
           onClick={handleTriggerClick}
           index={1}
           name={selectedTrigger ? selectedTrigger.name : "Trigger"}
+          image={selectedTrigger ? selectedTrigger.image : ""}
         />
         {selectedActions.length > 0 ? (
           selectedActions.map((action, index) => (
@@ -90,6 +92,7 @@ export default function ZapPage() {
               onClick={() => handleActionClick(index)}
               index={2 + index}
               name={action.name ? action.name : "Action"}
+              image={action.image ? action.image : null}
             />
           ))
         ) : (
