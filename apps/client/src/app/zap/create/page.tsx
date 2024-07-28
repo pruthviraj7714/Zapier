@@ -13,11 +13,12 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 import ElementCell from "@/components/ElementCell";
+import { useRouter } from "next/navigation";
 
 export default function ZapPage() {
   const [selectedTrigger, setSelectedTrigger] = useState<{
-    name: string,
-    image : string
+    name: string;
+    image: string;
   } | null>(null);
   const [selectedActions, setSelectedActions] = useState<any[]>([]);
   const [selectedModelIndex, setSelectedModelIndex] = useState<null | number>(
@@ -25,7 +26,9 @@ export default function ZapPage() {
   );
   const [availableActions, setAvailableActions] = useState<any[]>([]);
   const [availableTriggers, setAvailableTriggers] = useState<any[]>([]);
-
+  const [triggerId, setTriggerId] = useState("");
+  const [actions, setActions] = useState<any[]>([]);
+  const router = useRouter();
   const { toast } = useToast();
 
   const getAvailableTriggers = async () => {
@@ -50,6 +53,21 @@ export default function ZapPage() {
     }
   };
 
+  const createZap = async () => {
+    try {
+      const res = await axios.post("/api/zap/create-zap", {
+        triggerId,
+        actions,
+      });
+      console.log(res.data);
+      router.push("/dashboard");
+    } catch (error: any) {
+      toast({
+        title: error.response.data.message,
+      });
+    }
+  };
+
   const handleTriggerClick = () => {
     setSelectedModelIndex(1);
   };
@@ -60,6 +78,7 @@ export default function ZapPage() {
 
   const selectTrigger = (trigger: any) => {
     setSelectedTrigger(trigger);
+    setTriggerId(trigger.id);
     setSelectedModelIndex(null);
   };
 
@@ -67,6 +86,7 @@ export default function ZapPage() {
     const updatedActions = [...selectedActions];
     updatedActions[index] = action;
     setSelectedActions(updatedActions);
+    setActions([...actions, action]);
     setSelectedModelIndex(null);
   };
 
@@ -77,7 +97,9 @@ export default function ZapPage() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-6">
-      <Button className="absolute right-10 top-10">Publish</Button>
+      <Button onClick={createZap} className="absolute right-10 top-10">
+        Publish
+      </Button>
       <div className="flex flex-col justify-center items-center space-y-4">
         <ZapCell
           onClick={handleTriggerClick}
