@@ -21,8 +21,16 @@ export async function GET(req: NextRequest) {
         userId: parseInt(session.user.id, 10),
       },
       include : {
-        trigger : true,
-        actions : true,
+        trigger : {
+          include : {
+            type : true
+          }
+        },
+        actions : {
+          include : {
+            type : true
+          }
+        },
       }
     });
 
