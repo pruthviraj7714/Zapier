@@ -46,6 +46,7 @@ model Action {
   actionId    String
   type        AvailableAction @relation(fields: [actionId], references: [id])
   sortingOrder Int    @default(0)
+  metadata    Json
 }
 
 model AvailableAction {
