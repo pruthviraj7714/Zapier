@@ -27,7 +27,7 @@ export default function Dashboard() {
       });
     } catch (error: any) {
       toast({
-        title: error.reponse.data.message,
+        title: error.response.data.message,
       });
     }finally {
       setDeleting(null);

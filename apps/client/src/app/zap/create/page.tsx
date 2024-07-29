@@ -14,6 +14,9 @@ import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 import ElementCell from "@/components/ElementCell";
 import { useRouter } from "next/navigation";
+import EmailSelector from "@/components/Dialogs/EmailDialog";
+import SMSSelector from "@/components/Dialogs/SMSDialog";
+import WhatsappSelector from "@/components/Dialogs/WhatsappDialog";
 
 export default function ZapPage() {
   const [selectedTrigger, setSelectedTrigger] = useState<{
@@ -27,7 +30,7 @@ export default function ZapPage() {
   const [availableActions, setAvailableActions] = useState<any[]>([]);
   const [availableTriggers, setAvailableTriggers] = useState<any[]>([]);
   const [triggerId, setTriggerId] = useState("");
-  const [actions, setActions] = useState<any[]>([]);
+  const [actionDialog, setActionDialog] = useState<any | null>(null);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -55,11 +58,10 @@ export default function ZapPage() {
 
   const createZap = async () => {
     try {
-      const res = await axios.post("/api/zap/create-zap", {
+      await axios.post("/api/zap/create-zap", {
         triggerId,
-        actions,
+        actions: selectedActions,
       });
-      console.log(res.data);
       router.push("/dashboard");
     } catch (error: any) {
       toast({
@@ -83,16 +85,9 @@ export default function ZapPage() {
   };
 
   const selectAction = (action: any, index: number) => {
-    const actionsCopy = [...actions];
-
+    const actionsCopy = [...selectedActions];
     actionsCopy[index] = action;
-
-    const updatedActions = [...selectedActions];
-    updatedActions[index] = action;
-
-    setSelectedActions(updatedActions);
-    setActions(actionsCopy);
-
+    setSelectedActions(actionsCopy);
     setSelectedModelIndex(null);
   };
 
@@ -100,6 +95,14 @@ export default function ZapPage() {
     getAvailableTriggers();
     getAvailableActions();
   }, []);
+
+  const updateActionMetadata = (index: number, metadata: any) => {
+    const updatedActions = selectedActions.map((act, idx) =>
+      idx === index ? { ...act, metadata } : act
+    );
+    setSelectedActions(updatedActions);
+    setActionDialog(null);
+  };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-6">
@@ -188,7 +191,13 @@ export default function ZapPage() {
               <div className="flex flex-col items-center gap-4">
                 {availableActions && availableActions.length > 0 ? (
                   availableActions.map((action, idx) => (
-                    <div key={idx} onClick={() => selectAction(action, index)}>
+                    <div
+                      key={idx}
+                      onClick={() => {
+                        selectAction(action, index);
+                        setActionDialog(action);
+                      }}
+                    >
                       <ElementCell
                         name={action.name}
                         image={action.image}
@@ -206,6 +215,26 @@ export default function ZapPage() {
           </DialogContent>
         </Dialog>
       ))}
+      {actionDialog?.name === "Email" ? (
+        <EmailSelector
+          action={actionDialog}
+          setAction={(metadata) => updateActionMetadata(selectedActions.findIndex(act => act.name === actionDialog.name), metadata)}
+        />
+      ) : actionDialog?.name === "Solana" ? (
+        <div>Solana</div>
+      ) : actionDialog?.name === "SMS" ? (
+        <SMSSelector
+          action={actionDialog}
+          setAction={(metadata) => updateActionMetadata(selectedActions.findIndex(act => act.name === actionDialog.name), metadata)}
+        />
+      ) : actionDialog?.name === "Whatsapp" ? (
+        <WhatsappSelector
+          action={actionDialog}
+          setAction={(metadata) => updateActionMetadata(selectedActions.findIndex(act => act.name === actionDialog.name), metadata)}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
