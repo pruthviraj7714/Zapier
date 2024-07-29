@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { WEBHOOK_BASE_URL } from "@/config/config";
 
 export function ZapTable({
   zaps,
@@ -71,8 +72,8 @@ export function ZapTable({
                   )}
                 </div>
               </td>
-              <td className="py-4 px-5 border-b border-gray-200 text-sm text-gray-600">
-                {zap.hookURL}
+              <td className="py-4 px-5 border-b border-gray-200 text-sm">
+                <p className="text-blue-600 underline cursor-pointer">{WEBHOOK_BASE_URL}/{zap.userId}/{zap.id}</p>
               </td>
               <td className="py-4 px-5 border-b border-gray-200 text-right text-sm flex items-center justify-end gap-2">
                 <Button>

@@ -83,10 +83,16 @@ export default function ZapPage() {
   };
 
   const selectAction = (action: any, index: number) => {
+    const actionsCopy = [...actions];
+
+    actionsCopy[index] = action;
+
     const updatedActions = [...selectedActions];
     updatedActions[index] = action;
+
     setSelectedActions(updatedActions);
-    setActions([...actions, action]);
+    setActions(actionsCopy);
+
     setSelectedModelIndex(null);
   };
 
