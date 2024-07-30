@@ -24,6 +24,19 @@ export async function GET(
         id: params.zapId,
         userId: parseInt(session.user.id),
       },
+      include : {
+        trigger : {
+          include : {
+            type : true
+          }
+        },
+        actions : {
+          include : {
+            type : true
+          }
+        },
+        zapRuns : true
+      }
     });
 
     if (!zap) {
