@@ -70,7 +70,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen flex flex-col p-6 bg-gray-100">
-      <div className="my-6 font-serif text-5xl">Welcome to Zapier, {name}!</div>
+      <div className="my-6 font-serif text-5xl">Welcome to Zapier, <span className="font-bold">{name}!</span></div>
       <div className="flex justify-center my-6">
         <Button
           className="bg-blue-500 text-white font-bold py-2 px-5 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-blue-600 transform hover:-translate-y-1"
