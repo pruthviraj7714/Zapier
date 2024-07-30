@@ -70,7 +70,6 @@ export async function DELETE(
 
     const userId = parseInt(session.user.id);
 
-    // Check if the zap exists and belongs to the user
     const zap = await db.zap.findFirst({
       where: {
         id: params.zapId,
@@ -87,8 +86,13 @@ export async function DELETE(
       );
     }
 
-    // Use a transaction to ensure atomic deletion
     await db.$transaction(async (tx) => {
+      await tx.zapRun.deleteMany({
+        where : {
+          zapId : params.zapId
+        }
+      })
+
       await tx.trigger.deleteMany({
         where: {
           zapId: params.zapId,
