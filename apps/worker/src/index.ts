@@ -64,7 +64,7 @@ const main = async () => {
       await new Promise((resolve) => setTimeout(resolve, 4000));
       switch (currAction?.type.name) {
         case "Email":
-          // await sendEmail("marganepruthviraj@gmail.com", "Hi there")
+         
           // const body = (currAction?.metadata as JsonObject).body; //You just recieved {comment.amount}
           // const to = (currAction?.metadata as JsonObject).to; //{comment.email}
           // const zapRunMetadata = zapRunDetails?.metadata; //{comment : {amount : 45} {email : "test@gmail.com"}}
@@ -103,11 +103,11 @@ const main = async () => {
           console.log("Email sent");
           break;
         case "SMS":
-          // await sendSMS("+917249807714", "Hi there");
+         
           console.log("SMS sent!");
           break;
         case "Whatsapp":
-          // await sendWhatsAppMessage("+917249807714", "Hello from zapier")
+    
           console.log("Whatsapp Message sent!");
           break;
         default:
