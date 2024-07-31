@@ -47,7 +47,7 @@ export default function ({
             <h2 className="text-3xl font-bold mb-4 text-blue-700">
               Your Zap's Webhook URL
             </h2>
-            <p className="text-lg text-gray-700 mb-2">
+            <p className="text-lg text-red-500 font-sans mb-2">
               Note: This Webhook URL triggers your zap. When the trigger is
               activated, all your further actions take place one by one.
             </p>
