@@ -75,44 +75,6 @@ const main = async () => {
 
           console.log(`Email sent! ${email} & message is ${body}`);
           // await sendEmail(email, body);
-         
-          // const body = (currAction?.metadata as JsonObject).body; //You just recieved {comment.amount}
-          // const to = (currAction?.metadata as JsonObject).to; //{comment.email}
-          // const zapRunMetadata = zapRunDetails?.metadata; //{comment : {amount : 45} {email : "test@gmail.com"}}
-          // Regular expression to extract metadata
-          // const metadataRegex = /\{([^}]+)\}/;
-          // const metadataMatch = (zapRunDetails?.metadata as string).match(
-          //   metadataRegex
-          // );
-          // const metadata = metadataMatch ? metadataMatch[1] : null;
-
-          // Regular expression to extract body
-          const bodyRegex = /body\s*:\s*([^,}]+)/;
-          const bodyMatch = (zapRunDetails?.metadata as string).match(
-            bodyRegex
-          );
-          const body = bodyMatch ? bodyMatch[1].trim() : null;
-
-          // Regular expression to extract amount
-          const amountRegex = /amount\s*:\s*([^,}]+)/;
-          const amountMatch = (zapRunDetails?.metadata as string).match(
-            amountRegex
-          );
-          const amount = amountMatch ? amountMatch[1].trim() : null;
-
-          // Regular expression to extract email
-          const emailRegex = /email\s*:\s*"([^"]+)"/;
-          const emailMatch = (zapRunDetails?.metadata as string).match(
-            emailRegex
-          );
-          const email = emailMatch ? emailMatch[1].trim() : null;
-
-          // console.log("Metadata:", metadata);
-          console.log("Body:", body);
-          console.log("Amount:", amount);
-          console.log("Email:", email);
-          console.log("Email sent");
-          break;
         case "SMS":
           const contact = parse(
             (currAction?.metadata as JsonObject).contact as string,
@@ -124,12 +86,9 @@ const main = async () => {
           );
           console.log(`SMS sent! ${contact} & message is ${message}`);
           // await sendSMS(contact, message);
-         
-          console.log("SMS sent!");
           break;
         case "Whatsapp":
           // await sendWhatsAppMessage("mynumber", "Hello from zapier")
-    
           console.log("Whatsapp Message sent!");
           break;
         default:
