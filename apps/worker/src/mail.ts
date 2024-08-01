@@ -1,22 +1,35 @@
 import nodemailer from "nodemailer";
+import { config } from "dotenv";
 
-
-const transport = nodemailer.createTransport({
-    host: process.env.SMTP_ENDPOINT,
-    port: 587,
-    secure: false, 
-    auth: {
-      user: process.env.SMTP_USERNAME,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
+config();
 
 export async function sendEmail(to: string, body: string) {
-    await transport.sendMail({
-        from: "",
-        sender: "",
-        to,
-        subject: "Hello from Zapier",
-        text: body
-    })
+    const { SMTP_USERNAME, SMTP_PASSWORD } = process.env;
+
+    if (!SMTP_USERNAME || !SMTP_PASSWORD) {
+        console.error("Missing SMTP credentials in environment variables.");
+        return;
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: SMTP_USERNAME,
+            pass: SMTP_PASSWORD,
+        },
+    });
+
+    const mailOptions = {
+        from: SMTP_USERNAME,
+        to: to,
+        subject: "Hello from zapier",
+        text: body,
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log("Email sent: " + info.response);
+    } catch (error) {
+        console.error("Error sending email: " + error);
+    }
 }
