@@ -1,9 +1,9 @@
 import db from "@repo/db/client";
 import { Kafka } from "kafkajs";
 import { sendEmail } from "./mail";
-import { sendSMS } from "./sms";
-import { sendWhatsAppMessage } from "./whatsapp";
 import { JsonObject } from "mailgun.js";
+import { parse } from "./parser";
+import { sendSMS } from "./sms";
 
 const kafka = new Kafka({
   clientId: "outbox-processor",
@@ -64,50 +64,31 @@ const main = async () => {
       await new Promise((resolve) => setTimeout(resolve, 4000));
       switch (currAction?.type.name) {
         case "Email":
-          // await sendEmail("marganepruthviraj@gmail.com", "Hi there")
-          // const body = (currAction?.metadata as JsonObject).body; //You just recieved {comment.amount}
-          // const to = (currAction?.metadata as JsonObject).to; //{comment.email}
-          // const zapRunMetadata = zapRunDetails?.metadata; //{comment : {amount : 45} {email : "test@gmail.com"}}
-          // Regular expression to extract metadata
-          // const metadataRegex = /\{([^}]+)\}/;
-          // const metadataMatch = (zapRunDetails?.metadata as string).match(
-          //   metadataRegex
-          // );
-          // const metadata = metadataMatch ? metadataMatch[1] : null;
-
-          // Regular expression to extract body
-          const bodyRegex = /body\s*:\s*([^,}]+)/;
-          const bodyMatch = (zapRunDetails?.metadata as string).match(
-            bodyRegex
+          const body = parse(
+            (currAction?.metadata as JsonObject).body as string,
+            zapRunDetails?.metadata
           );
-          const body = bodyMatch ? bodyMatch[1].trim() : null;
-
-          // Regular expression to extract amount
-          const amountRegex = /amount\s*:\s*([^,}]+)/;
-          const amountMatch = (zapRunDetails?.metadata as string).match(
-            amountRegex
+          const email = parse(
+            (currAction?.metadata as JsonObject).email as string,
+            zapRunDetails?.metadata
           );
-          const amount = amountMatch ? amountMatch[1].trim() : null;
 
-          // Regular expression to extract email
-          const emailRegex = /email\s*:\s*"([^"]+)"/;
-          const emailMatch = (zapRunDetails?.metadata as string).match(
-            emailRegex
-          );
-          const email = emailMatch ? emailMatch[1].trim() : null;
-
-          // console.log("Metadata:", metadata);
-          console.log("Body:", body);
-          console.log("Amount:", amount);
-          console.log("Email:", email);
-          console.log("Email sent");
-          break;
+          console.log(`Email sent! ${email} & message is ${body}`);
+          // await sendEmail(email, body);
         case "SMS":
-          // await sendSMS("+917249807714", "Hi there");
-          console.log("SMS sent!");
+          const contact = parse(
+            (currAction?.metadata as JsonObject).contact as string,
+            zapRunDetails?.metadata
+          );
+          const message = parse(
+            (currAction?.metadata as JsonObject).message as string,
+            zapRunDetails?.metadata
+          );
+          console.log(`SMS sent! ${contact} & message is ${message}`);
+          // await sendSMS(contact, message);
           break;
         case "Whatsapp":
-          // await sendWhatsAppMessage("+917249807714", "Hello from zapier")
+          // await sendWhatsAppMessage("mynumber", "Hello from zapier")
           console.log("Whatsapp Message sent!");
           break;
         default:
