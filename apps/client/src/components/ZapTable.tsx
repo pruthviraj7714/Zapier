@@ -22,19 +22,19 @@ export function ZapTable({
 }) {
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white shadow-md rounded-lg">
+      <table className="min-w-full bg-white dark:bg-gray-800 shadow-md rounded-lg">
         <thead>
           <tr>
-            <th className="py-3 px-5 border-b-2 border-gray-300 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+            <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
               ID
             </th>
-            <th className="py-3 px-5 border-b-2 border-gray-300 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+            <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
               Name
             </th>
-            <th className="py-3 px-5 border-b-2 border-gray-300 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+            <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
               Web Hook URL
             </th>
-            <th className="py-3 px-5 border-b-2 border-gray-300 bg-gray-100 text-right text-sm font-semibold text-gray-600 uppercase tracking-wider">
+            <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-right text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
               Actions
             </th>
           </tr>
@@ -43,12 +43,12 @@ export function ZapTable({
           {zaps.map((zap: any) => (
             <tr
               key={zap.id}
-              className="hover:bg-gray-100 transition-colors duration-200"
+              className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
             >
-              <td className="py-4 px-5 border-b border-gray-200 text-sm text-gray-600">
+              <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300">
                 {zap.id}
               </td>
-              <td className="py-4 px-5 border-b border-gray-200 text-sm text-gray-600">
+              <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-2">
                   <img
                     src={zap.trigger.type.image}
@@ -66,16 +66,16 @@ export function ZapTable({
                       </div>
                     ))
                   ) : (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
                       No actions found
                     </div>
                   )}
                 </div>
               </td>
-              <td className="py-4 px-5 border-b border-gray-200 text-sm">
-                <p className="text-blue-600 underline cursor-pointer">{WEBHOOK_BASE_URL}/{zap.userId}/{zap.id}</p>
+              <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-sm text-blue-600 dark:text-blue-400 underline cursor-pointer">
+                {WEBHOOK_BASE_URL}/{zap.userId}/{zap.id}
               </td>
-              <td className="py-4 px-5 border-b border-gray-200 text-right text-sm flex items-center justify-end gap-2">
+              <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-right text-sm flex items-center justify-end gap-2">
                 <Button>
                   <Link href={`zap/${zap.id}`}>Go</Link>
                 </Button>

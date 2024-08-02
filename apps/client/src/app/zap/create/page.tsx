@@ -104,7 +104,7 @@ export default function ZapPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-6">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 p-6">
       <Button onClick={createZap} className="absolute right-10 top-10">
         Publish
       </Button>
@@ -126,7 +126,7 @@ export default function ZapPage() {
             />
           ))
         ) : (
-          <div className="text-gray-500">No actions selected</div>
+          <div className="text-gray-500 dark:text-gray-400">No actions selected</div>
         )}
 
         <div
@@ -163,7 +163,7 @@ export default function ZapPage() {
                   </div>
                 ))
               ) : (
-                <div className="flex justify-center items-center font-bold text-red-500">
+                <div className="flex justify-center items-center font-bold text-red-500 dark:text-red-400">
                   No Triggers Found!
                 </div>
               )}
@@ -205,7 +205,7 @@ export default function ZapPage() {
                     </div>
                   ))
                 ) : (
-                  <div className="flex justify-center items-center font-bold text-red-500">
+                  <div className="flex justify-center items-center font-bold text-red-500 dark:text-red-400">
                     No Actions Found!
                   </div>
                 )}
