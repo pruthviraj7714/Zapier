@@ -64,17 +64,18 @@ const main = async () => {
       await new Promise((resolve) => setTimeout(resolve, 4000));
       switch (currAction?.type.name) {
         case "Email":
-          const body = parse(
-            (currAction?.metadata as JsonObject).body as string,
+          const email = parse(
+            (currAction?.metadata as JsonObject).toPerson as string,
             zapRunDetails?.metadata
           );
-          const email = parse(
-            (currAction?.metadata as JsonObject).email as string,
+          const name = parse(
+            (currAction?.metadata as JsonObject).message as string,
             zapRunDetails?.metadata
           );
 
-          console.log(`Email sent! ${email} & message is ${body}`);
+          console.log(`Email sent! to ${email} & message is ${name}`);
           // await sendEmail(email, body);
+          break;
         case "SMS":
           const contact = parse(
             (currAction?.metadata as JsonObject).contact as string,
@@ -84,12 +85,8 @@ const main = async () => {
             (currAction?.metadata as JsonObject).message as string,
             zapRunDetails?.metadata
           );
-          console.log(`SMS sent! ${contact} & message is ${message}`);
+          console.log(`SMS sent! to ${contact} & message is ${message}`);
           // await sendSMS(contact, message);
-          break;
-        case "Whatsapp":
-          // await sendWhatsAppMessage("mynumber", "Hello from zapier")
-          console.log("Whatsapp Message sent!");
           break;
         default:
           console.log("Unknown action type!");
