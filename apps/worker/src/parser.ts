@@ -3,11 +3,11 @@ export function parse(
   values: any,
   startDelimiter = "{",
   endDelimiter = "}"
-) {
+): string {
   let finalString = "";
   let i = 0;
 
-  if(!text) return ""
+  if (!text) return "";
 
   while (i < text.length) {
     if (text[i] === startDelimiter) {
@@ -20,7 +20,10 @@ export function parse(
         let localValues = values;
         for (const key of keys) {
           localValues = localValues[key];
-          if (localValues === undefined) break;
+          if (localValues === undefined) {
+            console.warn(`Key not found: ${key}`);
+            break;
+          }
         }
         finalString +=
           localValues !== undefined
