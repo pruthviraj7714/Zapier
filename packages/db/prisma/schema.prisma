@@ -25,10 +25,12 @@ model Zap {
   id           String  @id @default(uuid())
   triggerId    String?
   userId       Int
+  name         String    
   trigger      Trigger?
   actions      Action[]
   zapRuns      ZapRun[]
   user         User @relation(fields: [userId], references: [id])
+  createdAt    DateTime  @default(now())
 }
 
 model Trigger {

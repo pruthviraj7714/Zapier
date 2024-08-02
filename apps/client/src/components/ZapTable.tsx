@@ -26,16 +26,18 @@ export function ZapTable({
         <thead>
           <tr>
             <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
-              ID
+              Name
             </th>
             <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
-              Name
+              Actions
             </th>
             <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
               Web Hook URL
             </th>
             <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-right text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
-              Actions
+            </th>
+            <th className="py-3 px-5 border-b-2 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-right text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider">
+              Created At
             </th>
           </tr>
         </thead>
@@ -45,8 +47,8 @@ export function ZapTable({
               key={zap.id}
               className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
             >
-              <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300">
-                {zap.id}
+              <td className="py-4 px-5 border-b font-extrabold border-gray-200 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300">
+                {zap.name}
               </td>
               <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-2">
@@ -106,6 +108,9 @@ export function ZapTable({
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
+              </td>
+              <td className="py-4 px-5 border-b border-gray-200 dark:border-gray-600 text-sm cursor-pointer">
+                {zap.createdAt.split("T")[0]}
               </td>
             </tr>
           ))}

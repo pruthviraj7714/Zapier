@@ -18,7 +18,13 @@ export async function POST(req: NextRequest) {
 
     const userId = session.user.id;
     const body = await req.json();
-    const { triggerId, actions } = body;
+    const { triggerId, actions, zapName } = body;
+    
+    if(!zapName) {
+      return NextResponse.json({
+        message : "Please Give Name to your zap"
+      }, {status : 400})
+    } 
 
     if (!triggerId || !actions || !Array.isArray(actions) || actions.length === 0) {
       return NextResponse.json(
@@ -29,12 +35,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
+
     const zap = await db.$transaction(async (tx) => {
       // Create the Zap
       const newZap = await tx.zap.create({
         data: {
           userId: Number(userId), // Assuming userId is an integer
-          triggerId
+          triggerId,
+          name : zapName
         },
       });
 

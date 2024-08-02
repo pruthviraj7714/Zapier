@@ -16,6 +16,7 @@ import ElementCell from "@/components/ElementCell";
 import { useRouter } from "next/navigation";
 import EmailSelector from "@/components/Dialogs/EmailDialog";
 import SMSSelector from "@/components/Dialogs/SMSDialog";
+import { Input } from "@/components/ui/input";
 
 export default function ZapPage() {
   const [selectedTrigger, setSelectedTrigger] = useState<{
@@ -30,6 +31,7 @@ export default function ZapPage() {
   const [availableTriggers, setAvailableTriggers] = useState<any[]>([]);
   const [triggerId, setTriggerId] = useState("");
   const [actionDialog, setActionDialog] = useState<any | null>(null);
+  const [zapName, setZapName] = useState<string>("");
   const router = useRouter();
   const { toast } = useToast();
 
@@ -60,11 +62,13 @@ export default function ZapPage() {
       await axios.post("/api/zap/create-zap", {
         triggerId,
         actions: selectedActions,
+        zapName,
       });
       router.push("/dashboard");
     } catch (error: any) {
       toast({
         title: error.response.data.message,
+        variant : "destructive"
       });
     }
   };
@@ -105,9 +109,20 @@ export default function ZapPage() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 p-6">
-      <Button onClick={createZap} className="absolute right-10 top-10">
+      <Button
+        onClick={createZap}
+        className="absolute right-10 top-10 bg-blue-600 text-white rounded-full px-4 py-2 hover:bg-blue-700 transition"
+      >
         Publish
       </Button>
+      <div className="flex justify-center items-center mt-16 mb-8">
+        <Input
+          type="text"
+          placeholder="Add Name for Your Zap Here"
+          onChange={(e) => setZapName(e.target.value)}
+          className="w-[340px] p-4 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+        />
+      </div>
       <div className="flex flex-col justify-center items-center space-y-4">
         <ZapCell
           onClick={handleTriggerClick}
@@ -126,9 +141,10 @@ export default function ZapPage() {
             />
           ))
         ) : (
-          <div className="text-gray-500 dark:text-gray-400">No actions selected</div>
+          <div className="text-gray-500 dark:text-gray-400">
+            No actions selected
+          </div>
         )}
-
         <div
           onClick={() => setSelectedActions([...selectedActions, {}])}
           className="flex items-center space-x-2 mt-4 p-2 bg-blue-500 text-white rounded-full cursor-pointer hover:bg-blue-600 transition-colors duration-200"
@@ -142,10 +158,12 @@ export default function ZapPage() {
         open={selectedModelIndex === 1}
         onOpenChange={() => setSelectedModelIndex(null)}
       >
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
           <DialogHeader>
-            <DialogTitle>Select Trigger</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-xl font-bold text-gray-800 dark:text-gray-200">
+              Select Trigger
+            </DialogTitle>
+            <DialogDescription className="text-gray-600 dark:text-gray-400">
               Select trigger for your zap here. Click on the trigger to select
               it.
             </DialogDescription>
@@ -154,7 +172,11 @@ export default function ZapPage() {
             <div className="flex flex-col items-center gap-4">
               {availableTriggers && availableTriggers.length > 0 ? (
                 availableTriggers.map((trigger, index) => (
-                  <div key={index} onClick={() => selectTrigger(trigger)}>
+                  <div
+                    key={index}
+                    onClick={() => selectTrigger(trigger)}
+                    className="cursor-pointer"
+                  >
                     <ElementCell
                       name={trigger.name}
                       image={trigger.image}
@@ -178,10 +200,12 @@ export default function ZapPage() {
           open={selectedModelIndex === 2 + index}
           onOpenChange={() => setSelectedModelIndex(null)}
         >
-          <DialogContent>
+          <DialogContent className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             <DialogHeader>
-              <DialogTitle>Select Action</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-xl font-bold text-gray-800 dark:text-gray-200">
+                Select Action
+              </DialogTitle>
+              <DialogDescription className="text-gray-600 dark:text-gray-400">
                 Select action for your zap here. Click on the action to select
                 it.
               </DialogDescription>
@@ -196,6 +220,7 @@ export default function ZapPage() {
                         selectAction(action, index);
                         setActionDialog(action);
                       }}
+                      className="cursor-pointer"
                     >
                       <ElementCell
                         name={action.name}
