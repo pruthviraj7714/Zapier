@@ -68,13 +68,13 @@ const main = async () => {
             (currAction?.metadata as JsonObject).toPerson as string,
             zapRunDetails?.metadata
           );
-          const name = parse(
+          const body = parse(
             (currAction?.metadata as JsonObject).message as string,
             zapRunDetails?.metadata
           );
 
-          console.log(`Email sent! to ${email} & message is ${name}`);
           // await sendEmail(email, body);
+          console.log(`Email sent! to ${email} & message is ${body}`);
           break;
         case "SMS":
           const contact = parse(
