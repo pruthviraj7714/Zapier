@@ -2,7 +2,7 @@ import { CreateAccount } from "@/components/Create-account";
 
 const SignupPage = async () => {
   return (
-    <div className="h-screen grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-10 ">
+    <div className="h-screen grid grid-cols-1 md:grid-cols-2 gap-8 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 items-center p-10 ">
       <div className="flex flex-col space-y-6 md:space-y-8">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight">
           Join millions worldwide who automate their work using Zapier.

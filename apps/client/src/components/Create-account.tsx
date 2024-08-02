@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Card,
@@ -32,13 +32,14 @@ export function CreateAccount() {
       });
       toast({
         title: "Account Successfully Created",
-        description: "Sign in with your credentials"
+        description: "Sign in with your credentials",
       });
 
       router.push("/signin");
     } catch (error: any) {
       toast({
-        title: error.response.data.message,
+        title: error.response.data.message ?? error.message,
+        variant: "destructive"
       });
     }
   };
@@ -53,24 +54,6 @@ export function CreateAccount() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <div className="grid grid-cols-2 gap-6">
-            <Button className="bg-white border hover:bg-gray-200 text-black ">
-              Github
-            </Button>
-            <Button className="bg-white border hover:bg-gray-200 text-black ">
-              Google
-            </Button>
-          </div>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
-          </div>
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -100,7 +83,9 @@ export function CreateAccount() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button onClick={submit} className="w-full">Get Started Free</Button>
+          <Button onClick={submit} className="w-full">
+            Get Started Free
+          </Button>
           <div className="flex items-center mt-4">
             <p>
               Already have an account?
