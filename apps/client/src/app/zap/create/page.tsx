@@ -16,7 +16,6 @@ import ElementCell from "@/components/ElementCell";
 import { useRouter } from "next/navigation";
 import EmailSelector from "@/components/Dialogs/EmailDialog";
 import SMSSelector from "@/components/Dialogs/SMSDialog";
-import WhatsappSelector from "@/components/Dialogs/WhatsappDialog";
 
 export default function ZapPage() {
   const [selectedTrigger, setSelectedTrigger] = useState<{
@@ -218,19 +217,26 @@ export default function ZapPage() {
       {actionDialog?.name === "Email" ? (
         <EmailSelector
           action={actionDialog}
-          setAction={(metadata) => updateActionMetadata(selectedActions.findIndex(act => act.name === actionDialog.name), metadata)}
+          setAction={(metadata) =>
+            updateActionMetadata(
+              selectedActions.findIndex(
+                (act) => act.name === actionDialog.name
+              ),
+              metadata
+            )
+          }
         />
-      ) : actionDialog?.name === "Solana" ? (
-        <div>Solana</div>
       ) : actionDialog?.name === "SMS" ? (
         <SMSSelector
           action={actionDialog}
-          setAction={(metadata) => updateActionMetadata(selectedActions.findIndex(act => act.name === actionDialog.name), metadata)}
-        />
-      ) : actionDialog?.name === "Whatsapp" ? (
-        <WhatsappSelector
-          action={actionDialog}
-          setAction={(metadata) => updateActionMetadata(selectedActions.findIndex(act => act.name === actionDialog.name), metadata)}
+          setAction={(metadata) =>
+            updateActionMetadata(
+              selectedActions.findIndex(
+                (act) => act.name === actionDialog.name
+              ),
+              metadata
+            )
+          }
         />
       ) : (
         <div></div>
