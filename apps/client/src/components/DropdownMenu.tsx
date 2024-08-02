@@ -1,28 +1,6 @@
 "use client";
 
-import {
-  Cloud,
-  ComputerIcon,
-  CreditCard,
-  Edit2,
-  Github,
-  HeartIcon,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Moon,
-  Plus,
-  PlusCircle,
-  Settings,
-  Sun,
-  User,
-  UserPlus,
-  Users,
-  VideoIcon,
-} from "lucide-react";
-
+import { Github, User, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,18 +8,12 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -77,12 +49,6 @@ export function AppMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={"/edit-profile"}>
-            <DropdownMenuItem>
-              <Edit2 className="mr-2 h-4 w-4" />
-              <span>Edit Profle</span>
-            </DropdownMenuItem>
-          </Link>
           <DropdownMenuItem
             onClick={() => {
               navigator.clipboard.writeText("http://localhost:3000");
@@ -97,7 +63,10 @@ export function AppMenu() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <Link href={"https://github.com/pruthviraj7714/course-selling-website"}>
+        <Link
+          target="_blank"
+          href={"https://github.com/pruthviraj7714/zapier/"}
+        >
           <DropdownMenuItem>
             <Github className="mr-2 h-4 w-4" />
             <span>GitHub</span>
