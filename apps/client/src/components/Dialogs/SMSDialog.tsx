@@ -21,12 +21,6 @@ export default function SMSSelector({
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    if (action?.metadata) {
-      setContact(action.metadata.contact || "");
-      setMessage(action.metadata.message || "");
-    }
-  }, [action]);
 
   return (
     <Dialog open={!!action} onOpenChange={() => setAction(null)}>
@@ -58,7 +52,6 @@ export default function SMSSelector({
                 <Input
                   type="text"
                   className="block w-full p-2 border border-gray-300 rounded-md"
-                  value={contact}
                   onChange={(e) => setContact(e.target.value)}
                 />
               </div>
@@ -72,7 +65,6 @@ export default function SMSSelector({
                 <Input
                   type="textarea"
                   className="block w-full p-2 border border-gray-300 rounded-md"
-                  value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </div>

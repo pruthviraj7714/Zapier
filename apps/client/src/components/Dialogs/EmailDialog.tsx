@@ -22,13 +22,7 @@ export default function EmailSelector({
   const [toPerson, setToPerson] = useState("");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    if (action?.metadata) {
-      setToPerson(action.metadata.toPerson || "");
-      setMessage(action.metadata.message || "");
-    }
-  }, [action]);
-
+ 
   return (
     <Dialog open={!!action} onOpenChange={() => setAction(null)}>
       <DialogContent className="sm:max-w-[425px]">
@@ -59,7 +53,6 @@ export default function EmailSelector({
                 <Input
                   type="email"
                   className="block w-full p-2 border border-gray-300 rounded-md"
-                  value={toPerson}
                   onChange={(e) => {
                     setToPerson(e.target.value);
                   }}
@@ -75,7 +68,6 @@ export default function EmailSelector({
                 <Input
                   type="textarea"
                   className="block w-full p-2 border border-gray-300 rounded-md"
-                  value={message}
                   onChange={(e) => {
                     setMessage(e.target.value);
                   }}
