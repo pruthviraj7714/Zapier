@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     }
 
 
-    const zap = await db.$transaction(async (tx) => {
+    const zap = await db.$transaction(async (tx : any) => {
       // Create the Zap
       const newZap = await tx.zap.create({
         data: {
