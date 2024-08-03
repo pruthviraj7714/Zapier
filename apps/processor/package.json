@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist --external:@repo/db/client",
+    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist",
     "dev": "npm run build && node dist/index.js",
-    "start": "node dist/index.js",
-    "watch": "esbuild src/index.ts --platform=node --bundle --outdir=dist --external:@repo/db/client --watch"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,8 +13,5 @@
   "description": "",
   "dependencies": {
     "kafkajs": "^2.2.4"
-  },
-  "devDependencies": {
-    "esbuild": "^0.23.0"
   }
 }
