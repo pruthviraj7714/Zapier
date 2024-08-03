@@ -5,7 +5,7 @@ import axios from "axios";
 import { ArrowBigDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function ({ params }: { params: { zapId: string } }) {
+export default function ZapPage({ params }: { params: { zapId: string } }) {
   const [zap, setZap] = useState<any>({});
 
   const getZap = async () => {
@@ -40,7 +40,7 @@ export default function ({ params }: { params: { zapId: string } }) {
           />
           <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 w-full max-w-4xl mt-6">
             <h2 className="text-3xl font-bold mb-4 text-blue-700 dark:text-blue-300">
-              Your Zap's Webhook URL
+            Your Zap&apos;s Webhook URL
             </h2>
             <p className="text-lg text-red-500 dark:text-red-400 font-sans mb-2">
               Note: This Webhook URL triggers your zap. When the trigger is

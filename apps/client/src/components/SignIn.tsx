@@ -94,7 +94,7 @@ export default function SignInForm() {
         </form>
         <div className="flex justify-center items-center text-black dark:text-white mt-4">
             <p>
-              Don't have an account?
+              Don&apos;t have an account?
               <Link
                 className="ml-2 text-blue-500 underline font-sans"
                 href={"/signup"}
