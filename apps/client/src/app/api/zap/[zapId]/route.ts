@@ -99,7 +99,7 @@ export async function DELETE(
       );
     }
 
-    await db.$transaction(async (tx) => {
+    await db.$transaction(async (tx : any) => {
       await tx.zapRun.deleteMany({
         where : {
           zapId : params.zapId
