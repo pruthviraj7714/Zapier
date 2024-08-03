@@ -21,11 +21,11 @@ export default function Home() {
           Pairing AI and Zapier helps you turn ideas into workflows and bots
           that work for you.
         </h1>
-        <div className="flex gap-4 text-lg dark:text-black my-4">
+        <div className="flex gap-4 text-lg dark:text-white my-4">
           <button className="px-10 py-3 bg-orange-600 text-white rounded-full">
             Start free with email
           </button>
-          <button className="px-10 py-3 flex gap-3 items-center border border-black rounded-full">
+          <button className="px-10 py-3 flex gap-3 items-center border border-black dark:border-white rounded-full">
             <img src="/google_logo.png" className="h-6 w-6" /> Start free with
             Google
           </button>
