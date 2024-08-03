@@ -27,6 +27,7 @@ app.post("/hooks/catch/:userId/:zapId", async (req, res) => {
 
     return res.status(200).json({
       message: "Webhook received!",
+      body
     });
   } catch (error) {
     console.error("Error processing webhook:", error);
