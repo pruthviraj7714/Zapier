@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist",
-    "dev" : "npm run build && node dist/index.js",
-    "start": "node dist/index.js"
+    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist --external:@repo/db/client",
+    "dev": "npm run build && node dist/index.js",
+    "start": "node dist/index.js",
+    "watch": "esbuild src/index.ts --platform=node --bundle --outdir=dist --external:@repo/db/client --watch"
   },
   "dependencies": {
-    "esbuild": "^0.23.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.11"
+    "@types/express": "^4.17.11",
+    "esbuild": "^0.23.0"
   }
 }

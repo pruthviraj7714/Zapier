@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist",
+    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist --external:@repo/db/client",
     "dev": "npm run build && node dist/index.js",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "watch": "esbuild src/index.ts --platform=node --bundle --outdir=dist --external:@repo/db/client --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@types/nodemailer": "^6.4.15",
     "dotenv": "^16.4.5",
     "kafkajs": "^2.2.4",
     "nodemailer": "^6.9.14",
     "twilio": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.15",
+    "esbuild": "^0.23.0"
   }
 }
