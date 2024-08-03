@@ -1,4 +1,3 @@
-# Dockerfile for Express service
 FROM node:16-alpine
 
 WORKDIR /app
