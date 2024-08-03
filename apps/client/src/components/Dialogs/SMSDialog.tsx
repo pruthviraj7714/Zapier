@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -20,7 +20,31 @@ export default function SMSSelector({
 }) {
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
+  const availableSuggestions = ['{contact.name}', '{contact.number}', '{contact.company}'];
+
+  const handleMessageChange = (e: any) => {
+    const value = e.target.value;
+    setMessage(value);
+
+    const lastWord = value.split(" ").pop() || "";
+
+    if (lastWord.length > 0) {
+      setSuggestions(availableSuggestions.filter(s => s.includes(lastWord)));
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    const words = message.split(" ");
+    words.pop(); // Remove the current incomplete word
+    setMessage(words.join(" ") + " " + suggestion + " ");
+    setShowSuggestions(false);
+  };
 
   return (
     <Dialog open={!!action} onOpenChange={() => setAction(null)}>
@@ -55,7 +79,7 @@ export default function SMSSelector({
                   onChange={(e) => setContact(e.target.value)}
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 relative">
                 <Label
                   htmlFor="message"
                   className="block text-sm font-medium text-gray-700"
@@ -65,8 +89,22 @@ export default function SMSSelector({
                 <Input
                   type="textarea"
                   className="block w-full p-2 border border-gray-300 rounded-md"
-                  onChange={(e) => setMessage(e.target.value)}
+                  value={message}
+                  onChange={handleMessageChange}
                 />
+                {showSuggestions && (
+                  <div className="absolute z-10 w-full bg-white border dark:text-black border-gray-300 rounded-md shadow-lg">
+                    {suggestions.map((suggestion, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                        className="p-2 cursor-pointer hover:bg-gray-100"
+                      >
+                        {suggestion}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <Button
                 onClick={() => {
