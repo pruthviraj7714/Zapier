@@ -19,14 +19,22 @@ export async function POST(req: NextRequest) {
     const userId = session.user.id;
     const body = await req.json();
     const { triggerId, actions, zapName } = body;
-    
-    if(!zapName) {
-      return NextResponse.json({
-        message : "Please Give Name to your zap"
-      }, {status : 400})
-    } 
 
-    if (!triggerId || !actions || !Array.isArray(actions) || actions.length === 0) {
+    if (!zapName) {
+      return NextResponse.json(
+        {
+          message: "Please Give Name to your zap",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (
+      !triggerId ||
+      !actions ||
+      !Array.isArray(actions) ||
+      actions.length === 0
+    ) {
       return NextResponse.json(
         {
           message: "Invalid input data",
@@ -35,18 +43,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-
-    const zap = await db.$transaction(async (tx : any) => {
-      // Create the Zap
+    const zap = await db.$transaction(async (tx: any) => {
       const newZap = await tx.zap.create({
         data: {
-          userId: Number(userId), // Assuming userId is an integer
+          userId: Number(userId),
           triggerId,
-          name : zapName
+          name: zapName,
         },
       });
 
-      // Create the Trigger and associate with the Zap
       const newTrigger = await tx.trigger.create({
         data: {
           triggerId,
@@ -54,15 +59,14 @@ export async function POST(req: NextRequest) {
         },
       });
 
-      // Create the Actions and associate with the Zap
       const newActions = await Promise.all(
-        actions.map((action, index) => 
+        actions.map((action, index) =>
           tx.action.create({
             data: {
               zapId: newZap.id,
               actionId: action.id,
-              sortingOrder: index ?? 0, // Assuming you want to set sortingOrder
-              metadata: action.metadata ?? {}, // Assuming metadata is provided in action
+              sortingOrder: index ?? 0,
+              metadata: action.metadata ?? {},
             },
           })
         )
