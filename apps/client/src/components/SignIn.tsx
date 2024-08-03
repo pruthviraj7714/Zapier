@@ -47,12 +47,12 @@ export default function SignInForm() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6">
-      <div className="bg-white dark:bg-black p-8 dark:text-white rounded-lg shadow-xl max-w-md w-full">
-        <h2 className="text-3xl font-bold text-center text-white">
+    <div className="h-screen flex flex-col justify-center items-center dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 text-white p-6">
+      <div className="bg-white dark:bg-black p-8 dark:text-white rounded-lg shadow-2xl max-w-md w-full">
+        <h2 className="text-3xl font-bold text-center text-black dark:text-white">
           Login to Your Account
         </h2>
-        <p className="text-sm text-center text-gray-400 mb-6 mt-2">
+        <p className="text-sm text-center text-black dark:text-white mb-6 mt-2">
           Enter your credentials below to login to your account
         </p>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -92,7 +92,7 @@ export default function SignInForm() {
           </div>
           <Button type="submit" className="w-full">Sign In</Button>
         </form>
-        <div className="flex justify-center items-center mt-4">
+        <div className="flex justify-center items-center text-black dark:text-white mt-4">
             <p>
               Don't have an account?
               <Link

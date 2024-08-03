@@ -21,7 +21,7 @@ export default function Home() {
           Pairing AI and Zapier helps you turn ideas into workflows and bots
           that work for you.
         </h1>
-        <div className="flex gap-4 text-lg my-4">
+        <div className="flex gap-4 text-lg dark:text-black my-4">
           <button className="px-10 py-3 bg-orange-600 text-white rounded-full">
             Start free with email
           </button>
@@ -52,7 +52,7 @@ export default function Home() {
             loop
           />
         </div>
-        <div className="flex flex-col items-center bg-teal-200 w-full h-full p-5">
+        <div className="flex flex-col items-center bg-teal-200 dark:text-black w-full h-full p-5">
           <h1 className="text-6xl max-w-5xl text-center my-3 font-bold">
             Meet Zapier: Your new home to automate anything
           </h1>
