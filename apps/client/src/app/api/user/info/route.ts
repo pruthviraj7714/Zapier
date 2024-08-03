@@ -17,9 +17,8 @@ export async function GET(req: NextRequest) {
       where: {
         id: parseInt(session.user.id),
       },
-      select: {
-        name: true,
-        email: true,
+      include: {
+        zaps: true,
       },
     });
 
